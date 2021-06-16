@@ -1,4 +1,21 @@
 console.log('stuff happens!')
+// user1 call function playerOneRoll
+// switches turn when player rolls a 1
+// user2 call function playertwoRoll
+
+
+// diceRolls
+// checkIfTurnOver
+// playerOneTracker {} - players
+// PlayerTwoTracker {} - players
+// round - 
+// hold - track current - total score + current score for turn
+// switchPlayers
+// scoreTally 
+
+
+
+
 
 function diceRoll () {
   return Math.ceil((Math.random() * 6));
@@ -6,16 +23,17 @@ function diceRoll () {
 
 function checkIfTurnOver (roll) {
   if (roll === 1) {
+    $('#player1, #player2').toggle();
     return true
   } else {
     return false
   }
 }
 
-function scoreTracker () {
+function playerOneTracker () {
   let currentScore = 0
 
-  for(let i = 0; i < 5; i++) {
+  for(let i = 0; i < 50; i++) {
     let playerOneRoll = diceRoll(); 
     
     if (checkIfTurnOver(playerOneRoll)){
@@ -31,6 +49,10 @@ function scoreTracker () {
 
   console.log('end score', currentScore)
 };
+
+// add in playerTwoTracker when ready
+
+
 
 function runTests () {
   console.log('diceRoll returns something between 1 and 6')
@@ -60,4 +82,57 @@ function runTests () {
 }
 
 runTests()
-scoreTracker()
+// scoreTracker()
+
+
+//Replace true and false linking it to html
+// game business logic
+function Game() {
+  this.currentId = 0;
+  this.users = {};
+  this.round = true/false;
+}
+
+// Player business logic
+
+function Player(playerName) {
+  this.playerName = playerName;
+  this.turnScore = 0;
+  this.totalScore = 0;
+}
+//Replace true and false linking it to html
+Player.prototype.hold = function() {
+  this.totalScore = this.turnScore + this.totalScore;
+  this.turnScore = 0;
+  game.round = game.round +1;
+  $('#player1, #player2').toggle()
+
+}
+
+// toggle the button
+
+$(document).ready(function () {
+  $('#player1-roll').on('click', function () {
+    alert('player 1 roll')
+    // hook up logic to make player 1 do a roll
+  })
+
+  $('#player1-hold').on('click', function () {
+    alert('player 1 hold')
+    // hook up logic to make player 1 hold
+    $('#player1 button').toggle()
+    $('#player2 button').toggle()
+  })
+
+  $('#player2-roll').on('click', function () {
+    alert('player 2 roll')
+    // hook up logic to make player 2 do a roll
+  })
+
+  $('#player2-hold').on('click', function () {
+    alert('player 2 hold')
+    // hook up logic to make player 2 hold
+    $('#player1 button').toggle()
+    $('#player2 button').toggle()
+  })
+})
