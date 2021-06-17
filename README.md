@@ -57,7 +57,9 @@ Steps for the day:
 1. Kyle: When we get a one, clear the current score
 2. Scott: current score is not reset when we hold
 3. Arthur: make roll work for player two
+
 - we don't get marked as winner until rolling AFTER winning score
+- a 50 for player 2 does not win
 
 #### Misc notes and stuff
 

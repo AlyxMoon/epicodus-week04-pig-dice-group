@@ -153,20 +153,20 @@ $(document).ready(function () {
     $('#totalScore1').text(totalScore1);
     $('#diceRoll1').text(diceRoll1);
     $('#currentScore1').text(currentScore1);
-    
-    if (totalScore1 < 50) { 
-  
-    } else { 
-      $('#totalScore1').text("Winner!");
-    }
 
-    //$('#totalScore1').text(totalScore1)
-    // hook up logic to make player 1 do a roll
+    if (totalScore1 + currentScore1 >= 20) {
+      $('#totalScore1').text("Winner!");
+      $('button').hide();
+    }
   })
 
   $('#player1-hold').on('click', function () {
     totalScore1 = toggleTurn(totalScore1, currentScore1, diceRoll1, 1);
     currentScore1 = 0;
+
+    if (totalScore1 >= 20) { 
+      $('#totalScore1').text("Winner!");
+    }
   })
 
   $('#player2-roll').on('click', function () {
@@ -182,17 +182,18 @@ $(document).ready(function () {
     $('#diceRoll2').text(diceRoll2);
     $('#currentScore2').text(currentScore2);
     
-    if (totalScore2 < 50) { 
-  
-    } else { 
+    if (totalScore2 + currentScore2 >= 20) {
       $('#totalScore2').text("Winner!");
+      $('button').hide();
     }
-
   })
 
   $('#player2-hold').on('click', function () {
     totalScore2 = toggleTurn(totalScore2, currentScore2, diceRoll2, 2);
     currentScore2 = 0;
-   
+
+    if (totalScore2 >= 20) {
+      $('#totalScore2').text("Winner!");
+    }
   })
 })
