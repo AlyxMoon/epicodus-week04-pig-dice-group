@@ -109,20 +109,52 @@ Player.prototype.hold = function() {
 
 }
 
+function toggleTurn (totalScore, currentScore, diceRoll, player) {
+  totalScore += currentScore
+
+  if (player === 1) {
+    $('#totalScore1').text(totalScore);
+    $('#diceRoll1').text(0);
+    $('#currentScore1').text(0);
+  } else if (player === 2) {
+    $('#totalScore2').text(totalScore);
+    $('#diceRoll2').text(0);
+    $('#currentScore2').text(0);
+  }
+  
+
+
+  // hook up logic to make player 1 hold
+  $('#player1 button').toggle()
+  $('#player2 button').toggle()
+
+  return totalScore
+}
+
 // toggle the button
 $(document).ready(function () {
-  let totalScore1 = 0
-  let currentScore1 = 0
+  let totalScore1 = 0;
+  let currentScore1 = 0;
+  let diceRoll1 = 0;
+  let totalScore2 = 0;
+  let currentScore2 = 0;
+  let diceRoll2 = 0;
+
 
   $('#player1-roll').on('click', function () {
-    let diceRoll1 = diceRoll();
-    currentScore1 += diceRoll1
+    diceRoll1 = diceRoll();
+    if (diceRoll1 === 1) {
+      currentScore1 = 0;
+      totalScore1 = toggleTurn(totalScore1, currentScore1, diceRoll1, 1);
 
+    } else {
+      currentScore1 += diceRoll1
+    }
     $('#totalScore1').text(totalScore1);
     $('#diceRoll1').text(diceRoll1);
     $('#currentScore1').text(currentScore1);
     
-    if (totalScore1 < 10) { 
+    if (totalScore1 < 50) { 
   
     } else { 
       $('#totalScore1').text("Winner!");
@@ -133,22 +165,34 @@ $(document).ready(function () {
   })
 
   $('#player1-hold').on('click', function () {
-    totalScore1 += currentScore1
-    $('#totalScore1').text(totalScore1);
-    // hook up logic to make player 1 hold
-    $('#player1 button').toggle()
-    $('#player2 button').toggle()
+    totalScore1 = toggleTurn(totalScore1, currentScore1, diceRoll1, 1);
+    currentScore1 = 0;
   })
 
   $('#player2-roll').on('click', function () {
-    alert('player 2 roll')
-    // hook up logic to make player 2 do a roll
+    diceRoll2 = diceRoll();
+    if (diceRoll2 === 1) {
+      currentScore2 = 0;
+      totalScore2 = toggleTurn(totalScore2, currentScore2, diceRoll2, 2);
+
+    } else {
+      currentScore2 += diceRoll2
+    }
+    $('#totalScore2').text(totalScore2);
+    $('#diceRoll2').text(diceRoll2);
+    $('#currentScore2').text(currentScore2);
+    
+    if (totalScore2 < 50) { 
+  
+    } else { 
+      $('#totalScore2').text("Winner!");
+    }
+
   })
 
   $('#player2-hold').on('click', function () {
-    alert('player 2 hold')
-    // hook up logic to make player 2 hold
-    $('#player1 button').toggle()
-    $('#player2 button').toggle()
+    totalScore2 = toggleTurn(totalScore2, currentScore2, diceRoll2, 2);
+    currentScore2 = 0;
+   
   })
 })
