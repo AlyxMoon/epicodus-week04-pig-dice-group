@@ -110,15 +110,31 @@ Player.prototype.hold = function() {
 }
 
 // toggle the button
-
 $(document).ready(function () {
+  let totalScore1 = 0
+  let currentScore1 = 0
+
   $('#player1-roll').on('click', function () {
-    alert('player 1 roll')
+    let diceRoll1 = diceRoll();
+    currentScore1 += diceRoll1
+
+    $('#totalScore1').text(totalScore1);
+    $('#diceRoll1').text(diceRoll1);
+    $('#currentScore1').text(currentScore1);
+    
+    if (totalScore1 < 10) { 
+  
+    } else { 
+      $('#totalScore1').text("Winner!");
+    }
+
+    //$('#totalScore1').text(totalScore1)
     // hook up logic to make player 1 do a roll
   })
 
   $('#player1-hold').on('click', function () {
-    alert('player 1 hold')
+    totalScore1 += currentScore1
+    $('#totalScore1').text(totalScore1);
     // hook up logic to make player 1 hold
     $('#player1 button').toggle()
     $('#player2 button').toggle()
